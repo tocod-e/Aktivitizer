@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Homepage</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <link type="text/css" href="../CSS/Homepage.css" rel="stylesheet" />
+
+    <link type="text/css" href="../CSS/Footer.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body onload="checkToken(); loadActivities()">
+    <header>
+      <div class="logo-container">
+        <img src="/homepage/logo.png" alt="Logo" />
+        <h1 class="logo-title">
+          <span class="logo-name">Aktiv</span>
+          <span class="normal-letters">itizer </span>
+        </h1>
+      </div>
+
+      <nav class="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/kontaktformular" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about" class="nav-link">About</a>
+          </li>
+
+          <div class="dropdown">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+            >
+              <img src="/homepage/user.png" alt="DropdownMenu" width="30px" />
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-fixed">
+              <a
+                class="dropdown-item dropdown_menue meine_buchungen"
+                href="/kontoansicht"
+                >Meine Buchungen</a
+              >
+              <a
+                class="dropdown-item dropdown_menue zahlungsdetails_"
+                href="/kontoansicht"
+                >Zahlungsdetails</a
+              >
+              <a
+                class="dropdown-item dropdown_menue aktivitaet_erstellen"
+                href="/kontoansicht"
+                >Aktivität erstellen</a
+              >
+              <a
+                class="dropdown-item dropdown_menue meine_erstellten_aktivitaeten"
+                href="/kontoansicht"
+                >Meine Erstellten Aktivitäten
+              </a>
+              <div class="dropdown-divider dropdown_menue"></div>
+              <a class="dropdown-item dropdown_menue" href="/kontoansicht"
+                >Mein Konto</a
+              >
+              <a class="dropdown-item" id="dropdown_login" href="/login"
+                >Login/Registrierung</a
+              >
+              <a
+                class="dropdown-item"
+                id="dropdown_logout"
+                href="/home"
+                onclick="logoutUser()"
+                >Logout</a
+              >
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </header>
+    <hr class="separator" />
+
+    <main role="main">
+      <div class="container">
+        <!-- such funktion-->
+        <form id="searchForm">
+          <div class="search-container">
+            <input
+              type="text"
+              id="name"
+              name="activity"
+              class="form-control"
+              placeholder="Search Activity"
+              style="width: 100%"
+            />
+            <div class="row">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  class="form-control"
+                  placeholder="City"
+                  style="width: 100%"
+                />
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  id="date"
+                  name="date"
+                  class="form-control"
+                  placeholder="Date"
+                  style="width: 100%"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-primary search-button"
+              type="submit"
+              style="width: 100%"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
+        <!-- ergebnisse funktion-->
+        <h5 style="margin-bottom: 15px">
+          Aktivitäten in deiner Nähe / Suchergebnisse:
+        </h5>
+        <div id="aktivitaetShowRoom"></div>
+        <div class="row" id="searchResults"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="copyright">©2023 Aktivitizer</span>
+          </div>
+          <div class="col-md-6">
+            <a class="privacy-policy" href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      $(document).ready(function () {
+        $("#searchForm").submit(function (event) {
+          event.preventDefault(); // Prevent page reload on form submit
+          console.log("TEEEEEEST");
+          var formData = {
+            activity: $("#name").val(),
+            city: $("#city").val(),
+            date: $("#date").val(),
+          };
+
+          $.ajax({
+            url: "http://localhost:8000/api/search",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function (response) {
+            console.log("Success:", response);
+            document.getElementById("aktivitaetShowRoom").style.display = "none";
+            displaySearchResults(response);
+            },
+            error: function (error) {
+              console.log("Error:", error);
+            },
+          });
+        });
+      });
+
+      function displaySearchResults(results) {
+        const resultsContainer = $("#searchResults");
+        resultsContainer.empty(); // Clear previous results
+
+        results.forEach((activity) => {
+          const activityParams = encodeURIComponent(JSON.stringify(activity));
+
+          //console.log(activity.picture_url);
+          resultsContainer.append(`
+          <div class="col-md-4">
+            <div class="result-container">
+              <div class="result-image">
+                <img src="/aktivitaeten/${activity.picture_url}"/>
+              </div>
+              <div class="result-info">
+                <h4 class="result-title"> ${activity.name}</h4>
+                <div class="result-line"></div>
+                <ul class="result-items">
+                  <li>Ort: ${activity.city}</li>
+                  <li>Datum: ${activity.date}</li>
+                  <li>Dauer: ${activity.duration} </li>
+                  <li>Preis pro Person: ${activity.price}€</li>
+                </ul>
+                
+                <a href="/buchung?activity=${activityParams}">
+                  <button class="result-button">Book</button></a
+                >
+                <a href="/aktivitaetsansicht?activity=${activityParams}">
+                  <button class="result-button">Details</button></a
+                >
+              </div>
+            </div>
+          </div>
+        `);
+        });
+      }
+    </script>
+    <script>
+      function profil_Kunde() {
+        $(document).ready(function () {
+          $.ajax({
+            url: "http://localhost:8000/api/kunde/profil",
+            type: "get",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          })
+            .done(function (response) {
+              console.log(response);
+              //console.log(response.rolleId);
+              if (response.rolleId === 2) {
+                //Kunde = 2, Unternehmen = 3
+                var aktivitaetErstellenTabs = document.getElementsByClassName(
+                  "aktivitaet_erstellen"
+                );
+                var meineErstelltenAktivitaetenTabs =
+                  document.getElementsByClassName(
+                    "meine_erstellten_aktivitaeten"
+                  );
+
+                Array.from(aktivitaetErstellenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(meineErstelltenAktivitaetenTabs).forEach(function (
+                  tab
+                ) {
+                  tab.style.display = "none";
+                });
+              } else if (response.rolleId === 3) {
+                var zahlungsdetailsTabs =
+                  document.getElementsByClassName("zahlungsdetails_");
+                var meineBuchungenTabs =
+                  document.getElementsByClassName("meine_buchungen");
+
+                Array.from(meineBuchungenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(zahlungsdetailsTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              //console.error('Fehler beim Abrufen der Benutzerdaten:', statusText, error);
+              return false;
+            });
+        });
+      }
+      function profil_Unternehmen() {
+        $(document).ready(function () {
+          $.ajax({
+            url: "http://localhost:8000/api/unternehmen/profil",
+            type: "get",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          })
+            .done(function (response) {
+              console.log(response);
+              //console.log(response.rolleId);
+              if (response.rolleId === 2) {
+                //Kunde = 2, Unternehmen = 3
+                var aktivitaetErstellenTabs = document.getElementsByClassName(
+                  "aktivitaet_erstellen"
+                );
+                var meineErstelltenAktivitaetenTabs =
+                  document.getElementsByClassName(
+                    "meine_erstellten_aktivitaeten"
+                  );
+
+                Array.from(aktivitaetErstellenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(meineErstelltenAktivitaetenTabs).forEach(function (
+                  tab
+                ) {
+                  tab.style.display = "none";
+                });
+              } else if (response.rolleId === 3) {
+                var zahlungsdetailsTabs =
+                  document.getElementsByClassName("zahlungsdetails_");
+                var meineBuchungenTabs =
+                  document.getElementsByClassName("meine_buchungen");
+
+                Array.from(meineBuchungenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(zahlungsdetailsTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              //console.error('Fehler beim Abrufen der Benutzerdaten:', statusText, error);
+              return false;
+            });
+        });
+      }
+      function loadActivities() {
+        $(document).ready(function() {
+          $.ajax({
+            url: 'http://localhost:8000/api/aktivitaeten/alle',
+            type: 'get',
+          }).done (function(response) {
+            //console.log(response);
+            const existingContainer = document.getElementById("aktivitaetShowRoom");
+            if (response && response.length > 0) {
+              const row = document.createElement("div");
+              row.classList.add("row");
+              response.forEach(function(activity) {
+                // Erstelle HTML-Elemente für jeden Eintrag
+
+                const col = document.createElement("div");
+                col.classList.add("col-md-4");
+
+                const resultContainer = document.createElement("div");
+                resultContainer.classList.add("result-container");
+                
+                const resultImage = document.createElement("div");
+                resultImage.classList.add("result-image");
+                const img = document.createElement("img");
+                //console.log(activity.picture_url)
+                img.src = "/aktivitaeten/" + activity.picture_url;
+                const info = document.createElement("div");
+                info.classList.add("result-info");
+                
+                const title = document.createElement("h4");
+                title.classList.add("result-title");
+                title.textContent = activity.name; 
+
+                const line = document.createElement("div");
+                line.classList.add("result-line");
+
+                // Erstelle die UL-Liste
+                const itemList = document.createElement("ul");
+                itemList.classList.add("result-items");
+
+                const placeItem = document.createElement("li");
+                placeItem.textContent = `Ort: ${activity.city}`;
+
+                // Erstelle die einzelnen Listenelemente (LI) und fülle sie mit den entsprechenden Daten aus der Aktivität
+                const whenItem = document.createElement("li");
+                whenItem.textContent = `Datum: ${activity.date}`; 
+
+                const lengthItem = document.createElement("li");
+                lengthItem.textContent = `Dauer: ${activity.duration}h`; 
+
+                const priceItem = document.createElement("li");
+                priceItem.textContent = `Preis pro Person: ${activity.price}€`; 
+
+                // Füge die Listenelemente der UL-Liste hinzu
+                itemList.appendChild(placeItem);
+                itemList.appendChild(whenItem);
+                itemList.appendChild(lengthItem);
+                itemList.appendChild(priceItem);
+
+                const activityParams = encodeURIComponent(JSON.stringify(activity));
+
+                const activityLink = document.createElement("a");
+                //activityLink.setAttribute("href", "/aktivitaetsansicht");
+                activityLink.setAttribute("href", `/aktivitaetsansicht?activity=${activityParams}`);
+                const activityButton = document.createElement("button");
+                activityButton.classList.add("result-button");
+                activityButton.textContent = "Details";
+                activityLink.appendChild(activityButton);
+
+                const bookLink = document.createElement("a");
+
+                const accessToken = sessionStorage.getItem("accessToken");
+                if (accessToken) {
+                  bookLink.setAttribute("href", `/buchung?activity=${activityParams}`);
+                } else {
+                  bookLink.setAttribute("href", `/login`);
+                }
+
+                const bookButton = document.createElement("button");
+                bookButton.classList.add("result-button");
+                bookButton.textContent = "Book";
+                bookLink.appendChild(bookButton);
+                bookButton.style.marginRight = "10px"; // Füge dem Book-Button rechts einen Abstand von 10px hinzu
+                // Füge die erstellten Elemente in das DOM ein
+                resultImage.appendChild(img);
+
+                // Füge das resultImage-Element der resultContainer hinzu
+                resultContainer.appendChild(resultImage);
+                resultContainer.appendChild(info);
+                info.appendChild(title);
+                info.appendChild(line);
+                info.appendChild(itemList);
+                info.appendChild(bookLink);
+                info.appendChild(activityLink);
+
+
+
+                col.appendChild(resultContainer);
+                row.appendChild(col);
+              });
+                // Füge die erstellten Elemente in die vorhandene Seite ein
+                existingContainer.appendChild(row);
+              
+            } else {
+              // Keine Daten gefunden
+              console.log("Keine Aktivitäten gefunden.");
+            }})
+          }).fail(function (jqXHR, statusText, error) {
+            console.error('Fehler beim Abrufen der Aktivitäten:', statusText, error);
+        }); 
+      };
+      function checkToken() {
+        const accessToken = sessionStorage.getItem("accessToken");
+        if (!accessToken) {
+          var dropdown_m = document.getElementsByClassName("dropdown_menue");
+
+          Array.from(dropdown_m).forEach(function (tab) {
+            tab.style.display = "none";
+          });
+          document.getElementById("dropdown_logout").style.display = "none";
+        } else {
+          document.getElementById("dropdown_login").style.display = "none";
+          profil_Kunde();
+          profil_Unternehmen();
+
+          const jwtPayload = JSON.parse(window.atob(accessToken.split(".")[1]));
+          const datetime = new Date(jwtPayload.exp * 1000);
+          console.log("expiry time (epoch):", jwtPayload.exp * 1000);
+          console.log("expiry time (ISO):", datetime.toISOString());
+          const isExpired = Date.now() >= jwtPayload.exp * 1000;
+          console.log("token is expired:", isExpired);
+          if (isExpired == true) {
+            window.location = "/login";
+          } else {
+            document.getElementsByTagName("body")[0].style.display = "block";
+          }
+        }
+      }
+      function logoutUser() {
+        sessionStorage.removeItem("accessToken");
+      }
+    </script>
+  </body>
+</html>

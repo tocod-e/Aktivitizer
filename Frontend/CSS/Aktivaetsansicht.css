@@ -1,0 +1,42 @@
+.activity-description {
+  text-align: justify;
+}
+
+.activity-image {
+  width: 600px;
+  height: 400px;
+  float: right;
+  margin: 10px;
+}
+
+.random-div {
+  display: flex;
+  padding: 5px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info-organisator {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-ort {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-personen {
+  display: flex;
+  flex-direction: column;
+  margin-right: 25px;
+}
+
+.container-but {
+  display: flex;
+  flex-direction: column;
+}

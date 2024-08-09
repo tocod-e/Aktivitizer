@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Aktivitätsansicht</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <link type="text/css" href="../CSS/Homepage.css" rel="stylesheet" />
+    <link type="text/css" href="../CSS/Footer.css" rel="stylesheet" />
+    <link type="text/css" href="../CSS/Aktivaetsansicht.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body onload="checkToken()">
+    <header>
+      <div class="logo-container">
+        <img src="/homepage/logo.png" alt="Logo" />
+        <h1 class="logo-title">
+          <span class="logo-name">Aktiv</span>
+          <span class="normal-letters">itizer </span>
+        </h1>
+      </div>
+
+      <nav class="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/kontaktformular" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about" class="nav-link">About</a>
+          </li>
+
+          <div class="dropdown">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+            >
+              <img src="/homepage/user.png" alt="DropdownMenu" width="30px" />
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-fixed">
+              <a
+                class="dropdown-item dropdown_menue meine_buchungen"
+                href="/kontoansicht"
+                >Meine Buchungen</a
+              >
+              <a
+                class="dropdown-item dropdown_menue zahlungsdetails_"
+                href="/kontoansicht"
+                >Zahlungsdetails</a
+              >
+              <a
+                class="dropdown-item dropdown_menue aktivitaet_erstellen"
+                href="/kontoansicht"
+                >Aktivität erstellen</a
+              >
+              <a
+                class="dropdown-item dropdown_menue meine_erstellten_aktivitaeten"
+                href="/kontoansicht"
+                >Meine Erstellten Aktivitäten
+              </a>
+              <div class="dropdown-divider dropdown_menue"></div>
+              <a class="dropdown-item dropdown_menue" href="/kontoansicht"
+                >Mein Konto</a
+              >
+              <a class="dropdown-item" id="dropdown_login" href="/login"
+                >Login/Registrierung</a
+              >
+              <a
+                class="dropdown-item"
+                id="dropdown_logout"
+                href="/home"
+                onclick="logoutUser()"
+                >Logout</a
+              >
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </header>
+    <hr class="separator" />
+    <main>
+      <div class="container">
+        <div class="text-sm" style="margin-bottom: 20px">
+          <i class="fa fa-angle-left"></i>
+          <a href="/home">Zurück</a>
+        </div>
+        <h1><span id="titel"></span></h1>
+
+        <div class="activity">
+          <div>
+            <img
+              src="../PUBLIC/Aktivitätsansicht/wandern.jpeg"
+              alt="Bergwanderung"
+              class="activity-image"
+              id="activityImage"
+            />
+          </div>
+
+          <p class="activity-description" id="beschreibung">
+          </p>
+        </div>
+
+        <div class="random-div"></div>
+        <div class="info-container">
+          <div class="info-organisator">
+            <p style="font-weight: bold">Organisator</p>
+            <p><i class="fa fa-user"></i> <span id="organization"></span> </p> <!--Johi Flix-->
+            <p><i class="fa fa-phone"></i> Tel: 1234567890</p>
+            <p><i class="fa fa-envelope"></i> E-mail: example@example.com</p>
+          </div>
+
+          <div class="info-ort">
+            <p style="font-weight: bold">Standort</p>
+            <p><i class="fa fa-map-marker"></i> Ort: <span id="address"></span></p> <!--12345 Musterhausen-->
+            <p>
+              <i class="fa fa-calendar"></i> Verfügbar: <span id="datum"></span>
+            </p>
+            <p><i class="fa fa-calendar"></i> Dauer: <span id="dauer"></span></p>
+          </div>
+
+          <div class="info-personen">
+            <div class="info-row">
+              <p><i class="fa fa-users"></i> Participants: <span id="personen"></span></p>
+              <p><i class="fa fa-euro-sign"></i> <pan id="preis"></pan> pro Person</p>
+            </div>
+
+            <a href="#" onclick="redirectToBooking()">
+              <button class="btn btn-primary search-button" style="width: 100%">
+                Jetzt Buchen
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="copyright">©2023 Aktivitizer</span>
+          </div>
+          <div class="col-md-6">
+            <a class="privacy-policy" href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function profil_Kunde() {
+        $(document).ready(function () {
+          $.ajax({
+            url: "http://localhost:8000/api/kunde/profil",
+            type: "get",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          })
+            .done(function (response) {
+              console.log(response);
+              //console.log(response.rolleId);
+              if (response.rolleId === 2) {
+                //Kunde = 2, Unternehmen = 3
+                var aktivitaetErstellenTabs = document.getElementsByClassName(
+                  "aktivitaet_erstellen"
+                );
+                var meineErstelltenAktivitaetenTabs =
+                  document.getElementsByClassName(
+                    "meine_erstellten_aktivitaeten"
+                  );
+
+                Array.from(aktivitaetErstellenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(meineErstelltenAktivitaetenTabs).forEach(function (
+                  tab
+                ) {
+                  tab.style.display = "none";
+                });
+              } else if (response.rolleId === 3) {
+                var zahlungsdetailsTabs =
+                  document.getElementsByClassName("zahlungsdetails_");
+                var meineBuchungenTabs =
+                  document.getElementsByClassName("meine_buchungen");
+
+                Array.from(meineBuchungenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(zahlungsdetailsTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              //console.error('Fehler beim Abrufen der Benutzerdaten:', statusText, error);
+              return false;
+            });
+        });
+      }
+      function profil_Unternehmen() {
+        $(document).ready(function () {
+          $.ajax({
+            url: "http://localhost:8000/api/unternehmen/profil",
+            type: "get",
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("accessToken"),
+            },
+          })
+            .done(function (response) {
+              console.log(response);
+              //console.log(response.rolleId);
+              if (response.rolleId === 2) {
+                //Kunde = 2, Unternehmen = 3
+                var aktivitaetErstellenTabs = document.getElementsByClassName(
+                  "aktivitaet_erstellen"
+                );
+                var meineErstelltenAktivitaetenTabs =
+                  document.getElementsByClassName(
+                    "meine_erstellten_aktivitaeten"
+                  );
+
+                Array.from(aktivitaetErstellenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(meineErstelltenAktivitaetenTabs).forEach(function (
+                  tab
+                ) {
+                  tab.style.display = "none";
+                });
+              } else if (response.rolleId === 3) {
+                var zahlungsdetailsTabs =
+                  document.getElementsByClassName("zahlungsdetails_");
+                var meineBuchungenTabs =
+                  document.getElementsByClassName("meine_buchungen");
+
+                Array.from(meineBuchungenTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+
+                Array.from(zahlungsdetailsTabs).forEach(function (tab) {
+                  tab.style.display = "none";
+                });
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              //console.error('Fehler beim Abrufen der Benutzerdaten:', statusText, error);
+              return false;
+            });
+        });
+      }
+      function checkToken() {
+        const accessToken = sessionStorage.getItem("accessToken");
+        if (!accessToken) {
+          var dropdown_m = document.getElementsByClassName("dropdown_menue");
+
+          Array.from(dropdown_m).forEach(function (tab) {
+            tab.style.display = "none";
+          });
+          document.getElementById("dropdown_logout").style.display = "none";
+        } else {
+          document.getElementById("dropdown_login").style.display = "none";
+          profil_Kunde();
+          profil_Unternehmen();
+
+          const jwtPayload = JSON.parse(window.atob(accessToken.split(".")[1]));
+          const datetime = new Date(jwtPayload.exp * 1000);
+          console.log("expiry time (epoch):", jwtPayload.exp * 1000);
+          console.log("expiry time (ISO):", datetime.toISOString());
+          const isExpired = Date.now() >= jwtPayload.exp * 1000;
+          console.log("token is expired:", isExpired);
+          if (isExpired == true) {
+            window.location = "/login";
+          } else {
+            document.getElementsByTagName("body")[0].style.display = "block";
+          }
+        }
+      }
+      function logoutUser() {
+        sessionStorage.removeItem("accessToken");
+      }
+
+      function params() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const activityParams = urlParams.get('activity');
+        const activity = JSON.parse(decodeURIComponent(activityParams));
+
+        document.getElementById("titel").innerText = activity.name;
+        document.getElementById("activityImage").src = "/aktivitaeten/" + activity.picture_url;
+        document.getElementById("beschreibung").innerText = activity.comment;
+        document.getElementById("organization").innerText = activity.organization;
+        //
+        //
+        document.getElementById("address").innerText = activity.plz + ' ' + activity.city + ', ' + activity.address + ' ' + activity.nr;
+        document.getElementById("datum").innerText = activity.date;
+        document.getElementById("dauer").innerText = activity.duration + 'h';
+        //
+        document.getElementById("personen").innerText = activity.person_amount;
+        document.getElementById("preis").innerText = activity.price;
+
+
+        console.log(activity.id); // Zugriff auf die Aktivitäts-ID
+        console.log(activity.name); // Zugriff auf den Aktivitätsnamen
+      }
+      
+      document.addEventListener('DOMContentLoaded', (event) => {
+          params(); // Hier wird params() aufgerufen, wenn das DOM vollständig geladen ist
+      });
+      function redirectToBooking() {
+        const accessToken = sessionStorage.getItem("accessToken");
+        if (accessToken) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const activityParams = urlParams.get('activity');
+          const activity = JSON.parse(decodeURIComponent(activityParams));
+          // Baue die URL mit dem Parameter auf
+          const url = `/buchung?activity=${activityParams}`;
+
+          // Weiterleitung zur nächsten Seite mit dem Parameter in der URL
+          window.location.href = url;
+        } else {
+          window.location = "/login";
+        }
+
+      }
+    </script>
+  </body>
+</html>

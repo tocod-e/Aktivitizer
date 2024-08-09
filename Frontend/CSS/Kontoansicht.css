@@ -1,0 +1,39 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form .row {
+  margin: 0;
+  overflow: hidden;
+}
+.text-box {
+  border: none;
+  padding: 2px;
+  display: inline-block;
+}
+.input-container {
+  display: table;
+  width: 100%;
+}
+
+.input-container input {
+  display: table-cell;
+  width: 100%;
+}
+
+.text-right {
+  text-align: left !important;
+}
+
+.custom-div {
+  background-color: white;
+
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-div:hover {
+  background-color: black;
+  color: white;
+}

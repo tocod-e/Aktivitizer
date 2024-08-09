@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Registrierung</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../CSS/Registrierung.css" />
+    <link type="text/css" href="../CSS/Homepage.css" rel="stylesheet" />
+    <link type="text/css" href="../CSS/Footer.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <img src="/homepage/logo.png" alt="Logo" />
+        <h1 class="logo-title">
+          <span class="logo-name">Aktiv</span>
+          <span class="normal-letters">itizer </span>
+        </h1>
+      </div>
+
+      <nav class="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/home" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/kontaktformular" class="nav-link">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="/about" class="nav-link">About</a>
+          </li>
+
+          <div class="dropdown">
+            <a
+              href="#"
+              class="dropdown-toggle"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+            >
+              <img src="/homepage/user.png" alt="DropdownMenu" width="30px" />
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-fixed">
+              <a class="dropdown-item" id="dropdown_login" href="/login"
+                >Login/Registrierung</a
+              >
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </header>
+    <hr class="separator" />
+    <hr class="separator" />
+    <main>
+      <div>
+        <h1
+          class="custom-banner bg-secondary"
+          style="color: white; padding: 2px"
+        >
+          Registrierung
+        </h1>
+        <div class="row">
+          <div class="col-md-12">
+            <ul
+              class="nav nav-tabs nav-justified bg-light"
+              id="myTab"
+              role="tablist"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="home-tab"
+                  data-toggle="tab"
+                  href="#home"
+                  role="tab"
+                  aria-controls="home"
+                  aria-selected="true"
+                  >Kundenkonto</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="profile-tab"
+                  data-toggle="tab"
+                  href="#profile"
+                  role="tab"
+                  aria-controls="Konto"
+                  aria-selected="false"
+                  >Unternehmenkonto</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div
+                class="tab-pane fade show active text-align form-new"
+                id="home"
+                role="tabpanel"
+                aria-labelledby="home-tab"
+              >
+                <div class="row register-form">
+                  <div class="col-md-12">
+                    <form method="post" id="benutzerForm">
+                      <div class="form-group">
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="LGform1_user"
+                          class="form-control"
+                          value=""
+                          required=""
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Email *</label>
+                        <input
+                          type="text"
+                          id="email"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          value=""
+                          required=""
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Passwort *</label>
+                        <input
+                          type="password"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          id="passwort"
+                          value=""
+                          required=""
+                          placeholder="min. 7 Zeichen"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Passwort bestätigen *</label>
+                        <input
+                          type="password"
+                          id="passwortConfirm"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          value=""
+                          required=""
+                          placeholder="min. 7 Zeichen"
+                        />
+                      </div>
+                      <input
+                        class="sub-btn1"
+                        type="submit"
+                        value="Registrieren"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade show text-align form-new"
+                id="profile"
+                role="tabpanel"
+                aria-labelledby="profile-tab"
+              >
+                <div class="row register-form">
+                  <div class="col-md-12">
+                    <form method="post" id="unternehmenForm">
+                      <div class="form-group">
+                        <label>Name vom Unternehmen</label>
+                        <input
+                          type="text"
+                          name="LGform1_user"
+                          class="form-control"
+                          id="name_u"
+                          value=""
+                          required=""
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label style="display: block">Telefonnummer</label>
+                        <input
+                          type="number"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          id="telefonnummer"
+                          value=""
+                          required=""
+                        />
+                      </div>
+                      <div
+                        class="form-group"
+                        style="display: flex; align-items: baseline"
+                      >
+                        <div style="flex-direction: column; margin-right: auto">
+                          <label style="display: block">Postleitzahl</label>
+                          <input
+                            type="text"
+                            name="LGform1_pwd"
+                            class="form-control"
+                            id="plz"
+                            value=""
+                            required=""
+                          />
+                        </div>
+                        <div
+                          style="
+                            flex-direction: column;
+                            margin-left: auto;
+                            margin-right: auto;
+                          "
+                        >
+                          <label style="display: block">Ort</label>
+                          <input
+                            type="text"
+                            name="LGform1_pwd"
+                            class="form-control"
+                            id="ort"
+                            value=""
+                            required=""
+                          />
+                        </div>
+                        <div style="flex-direction: column; margin-left: auto">
+                          <label style="display: block">Land</label>
+                          <input
+                            type="text"
+                            name="LGform1_pwd"
+                            class="form-control"
+                            id="land"
+                            value=""
+                            required=""
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="form-group"
+                        style="display: flex; align-items: baseline"
+                      >
+                        <div style="flex: 1">
+                          <div
+                            style="flex-direction: column; margin-right: 10px"
+                          >
+                            <label style="display: block">Straße</label>
+                            <input
+                              type="text"
+                              name="LGform1_pwd"
+                              class="form-control"
+                              id="straße"
+                              style="width: 100%"
+                              value=""
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        <div style="flex-direction: column; margin-left: 15px">
+                          <label style="display: block">Hausnr.</label>
+                          <input
+                            type="number"
+                            name="LGform1_pwd"
+                            class="form-control"
+                            id="nr"
+                            value=""
+                            required=""
+                            style="width: 100%"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input
+                          type="text"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          id="email_u"
+                          value=""
+                          required=""
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label>Passwort </label>
+                        <input
+                          type="password"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          id="passwort_u"
+                          value=""
+                          required=""
+                          placeholder="min. 7 Zeichen"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Passwort bestätigen </label>
+                        <input
+                          type="password"
+                          name="LGform1_pwd"
+                          class="form-control"
+                          id="passwort_uConfirm"
+                          value=""
+                          required=""
+                          placeholder="min. 7 Zeichen"
+                        />
+                      </div>
+                      <input
+                        class="sub-btn1"
+                        type="submit"
+                        value="Registrieren"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <span class="copyright">©2023 Aktivitizer</span>
+              </div>
+              <div class="col-md-6">
+                <a class="privacy-policy" href="#">Privacy Policy</a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#benutzerForm").submit(function (event) {
+          event.preventDefault(); // Verhindert das Standardverhalten des Formulars (Seitenaktualisierung)
+          console.log("Formular abgeschickt!");
+          var userData = {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            passwort: $("#passwort").val(),
+            //passwortConfirm: $('#passwortConfirm').val()
+          };
+          console.log(userData);
+          $.ajax({
+            url: "http://localhost:8000/api/kunde/eindeutig",
+            method: "post",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ email: $("#email").val() }),
+            cache: false,
+            dataType: "json",
+          })
+            .done(function (response) {
+              if (response.eindeutig) {
+                $.ajax({
+                  url: "http://localhost:8000/api/kunde/bestaetigen",
+                  method: "post",
+                  contentType: "application/json; charset=utf-8",
+                  data: JSON.stringify({
+                    passwort: $("#passwort").val(),
+                    passwortConfirm: $("#passwortConfirm").val(),
+                  }),
+                  cache: false,
+                  dataType: "json",
+                })
+                  .done(function (response) {
+                    if (response.bestaetigen) {
+                      $.ajax({
+                        url: "http://localhost:8000/api/kunde/",
+                        method: "post",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(userData),
+                        cache: false,
+                        dataType: "json",
+                      })
+                        .done(function (response) {
+                          console.log(response);
+                          window.location.href = "/login";
+                          alert("Registrierung erfolgreich!");
+                        })
+                        .fail(function (jqXHR, statusText, error) {
+                          console.log(
+                            "Response Code: " +
+                              jqXHR.status +
+                              " - Fehlermeldung: " +
+                              jqXHR.responseText
+                          );
+                          const responseObj = JSON.parse(jqXHR.responseText);
+                          if (
+                            responseObj.errors &&
+                            responseObj.errors.length > 0
+                          ) {
+                            responseObj.errors.forEach((error) => {
+                              alert(error.msg);
+                            });
+                          } else {
+                            alert("Ein unbekannter Fehler ist aufgetreten.");
+                          }
+                        });
+                    } else {
+                      alert("Passwort stimmt nicht überein!");
+                    }
+                  })
+                  .fail(function (jqXHR, statusText, error) {
+                    console.log(
+                      "Response Code: " +
+                        jqXHR.status +
+                        " - Fehlermeldung: " +
+                        jqXHR.responseText
+                    );
+                    alert("Ein Fehler ist aufgetreten");
+                  });
+              } else {
+                alert("Email schon registriert!");
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              console.log(
+                "Response Code: " +
+                  jqXHR.status +
+                  " - Fehlermeldung: " +
+                  jqXHR.responseText
+              );
+              alert("Ein Fehler ist aufgetreten!");
+            });
+        });
+      });
+      // ------------------------------
+      $(document).ready(function () {
+        $("#unternehmenForm").submit(function (event) {
+          event.preventDefault(); // Verhindert das Standardverhalten des Formulars (Seitenaktualisierung)
+          console.log("Formular abgeschickt!");
+          var userData = {
+            name: $("#name_u").val(),
+            telefonnummer: $("#telefonnummer").val(),
+            land: $("#land").val(),
+            postleitzahl: $("#plz").val(),
+            ort: $("#ort").val(),
+            straße: $("#straße").val(),
+            hausnr: $("#nr").val(),
+            email: $("#email_u").val(),
+            passwort: $("#passwort_u").val(),
+          };
+          $.ajax({
+            url: "http://localhost:8000/api/unternehmen/eindeutig",
+            method: "post",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ email: $("#email_u").val() }),
+            cache: false,
+            dataType: "json",
+          })
+            .done(function (response) {
+              if (response.eindeutig) {
+                $.ajax({
+                  url: "http://localhost:8000/api/unternehmen/bestaetigen",
+                  method: "post",
+                  contentType: "application/json; charset=utf-8",
+                  data: JSON.stringify({
+                    passwort: $("#passwort_u").val(),
+                    passwortConfirm: $("#passwort_uConfirm").val(),
+                  }),
+                  cache: false,
+                  dataType: "json",
+                })
+                  .done(function (response) {
+                    if (response.bestaetigen) {
+                      $.ajax({
+                        url: "http://localhost:8000/api/unternehmen/",
+                        method: "post",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(userData),
+                        cache: false,
+                        dataType: "json",
+                      })
+                        .done(function (response) {
+                          console.log(response);
+                          window.location.href = "/login";
+                          alert("Registrierung erfolgreich!");
+                        })
+                        .fail(function (jqXHR, statusText, error) {
+                          console.log(
+                            "Response Code: " +
+                              jqXHR.status +
+                              " - Fehlermeldung: " +
+                              jqXHR.responseText
+                          );
+                          const responseObj = JSON.parse(jqXHR.responseText);
+                          if (
+                            responseObj.errors &&
+                            responseObj.errors.length > 0
+                          ) {
+                            responseObj.errors.forEach((error) => {
+                              alert(error.msg);
+                            });
+                          } else {
+                            alert("Ein unbekannter Fehler ist aufgetreten.");
+                          }
+                        });
+                    } else {
+                      alert("Passwort stimmt nicht überein!");
+                    }
+                  })
+                  .fail(function (jqXHR, statusText, error) {
+                    console.log(
+                      "Response Code: " +
+                        jqXHR.status +
+                        " - Fehlermeldung: " +
+                        jqXHR.responseText
+                    );
+                    alert("Ein Fehler ist aufgetreten");
+                  });
+              } else {
+                alert("Email schon registriert!");
+              }
+            })
+            .fail(function (jqXHR, statusText, error) {
+              console.log(
+                "Response Code: " +
+                  jqXHR.status +
+                  " - Fehlermeldung: " +
+                  jqXHR.responseText
+              );
+              alert("Ein Fehler ist aufgetreten!");
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
